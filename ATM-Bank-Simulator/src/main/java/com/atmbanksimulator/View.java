@@ -75,6 +75,7 @@ class View {
         Label var13 = new Label("Transfer Money");
         Button var14 = new Button("Back");
         var14.setOnAction((var2x) -> var1.setScene(this.atmScene));
+
         HBox var15 = new HBox((double)10.0F, new Node[]{var13, var14});
         var9.add(var15, 0, 0);
         this.transferInput = new TextField();
@@ -87,7 +88,13 @@ class View {
         var10.setOnAction((var2x) -> {
             if (this.controller.UIModel.isLoggedIn()) {
                 var1.setScene(this.transferScene);
+
+                // ✅ THIS LINE IS THE FIX
+                this.transferScene.getRoot().requestFocus();
+
                 this.transferResult.setText("Enter recipient's account number");
+                this.transferScene.getRoot().setFocusTraversable(true);
+                this.transferScene.getRoot().requestFocus();
             } else {
                 this.laMsg.setText("You have to be logged in first!");
             }
@@ -122,14 +129,19 @@ class View {
         this.transferScene = new Scene(var9, (double)this.W, (double)this.H);
         this.transferScene.getStylesheets().add("atm.css");
         this.transferScene.getRoot().setFocusTraversable(true);
-        this.transferScene.getRoot().setOnKeyPressed((var2x) -> {
+        transferScene.setOnKeyPressed(var2x -> {
+            //System.out.println("KEY PRESSED: " + var2x.getCode()); // debug
+
             switch (var2x.getCode()) {
-                case Y -> this.controller.process("Y");
-                case N -> this.controller.process("N");
+                case Y:
+                    controller.process("Y");
+                    break;
+
+                case N:
+                    controller.process("N");
+                    break;
             }
 
-            var1.setScene(this.transferScene);
-            this.transferScene.getRoot().requestFocus();
         });
         Button var31 = new Button("\ud83d\udd0a");
         var31.setOnAction((var1x) -> {
@@ -175,7 +187,27 @@ class View {
         this.grid.add(this.buttonPane, 0, 3);
         this.atmScene = new Scene(this.grid, (double)this.W, (double)this.H);
         this.atmScene.getStylesheets().add("atm.css");
-        var5.setOnAction((var2x) -> var1.setScene(this.atmScene));
+
+        this.atmScene.setOnKeyPressed(e -> {
+            //System.out.println("ATM KEY: " + e.getCode()); // debug
+
+            switch (e.getCode()) {
+                case Y:
+                    controller.process("Y");
+                    break;
+
+                case N:
+                    controller.process("N");
+                    break;
+            }
+        });
+
+        var5.setOnAction((var2x) -> {
+            var1.setScene(this.atmScene);
+
+            // ✅ also needed here
+            this.atmScene.getRoot().requestFocus();
+        });
         var1.setScene(var4);
         var1.setTitle("Welcome");
         var1.show();
@@ -262,7 +294,7 @@ class View {
     private void buttonClicked(ActionEvent var1) {
         Button var2 = (Button)var1.getSource();
         String var3 = var2.getText();
-        System.out.println("View::buttonClicked: label = " + var3);
+        //System.out.println("View::buttonClicked: label = " + var3);
         if (var3.equals("Fin")) {
             this.window.setScene(this.goodbyeScene);
         } else if (this.window.getScene() == this.transferScene) {
