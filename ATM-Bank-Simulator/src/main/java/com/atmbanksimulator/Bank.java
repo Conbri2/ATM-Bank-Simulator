@@ -228,7 +228,6 @@ public class Bank {
         if (!this.loggedIn()) {
             return "You are not logged in";
         }
-
         String accountNumber = this.loggedInAccount.getAccNumber();
         ArrayList<String> accountTransactions = new ArrayList<>();
         for (String transaction : this.transactions) {
@@ -236,18 +235,15 @@ public class Bank {
                 accountTransactions.add(transaction);
             }
         }
-
         if (accountTransactions.isEmpty()) {
             return "No recent transactions.";
         }
-
         Collections.reverse(accountTransactions);
         int start = Math.max(0, accountTransactions.size() - 5);
         StringBuilder statement = new StringBuilder("Mini Statement\n");
         for (int i = start; i < accountTransactions.size(); ++i) {
             statement.append(accountTransactions.get(i)).append("\n");
         }
-
         return statement.toString().trim();
     }
 

@@ -91,7 +91,7 @@ class View {
             if (this.controller.UIModel.isLoggedIn()) {
                 var1.setScene(this.transferScene);
 
-                // ✅ THIS LINE IS THE FIX
+
                 this.transferScene.getRoot().requestFocus();
 
                 this.transferResult.setText("Enter recipient's account number");
@@ -189,7 +189,7 @@ class View {
         var5.setOnAction((var2x) -> {
             var1.setScene(this.atmScene);
 
-            // ✅ also needed here
+
             this.atmScene.getRoot().requestFocus();
         });
         var1.setScene(var4);

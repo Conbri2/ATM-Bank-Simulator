@@ -3,6 +3,7 @@
     -fx-hgap: 12;
     -fx-vgap: 12;
     -fx-padding: 20;
+    -fx-background-color: lightblue;
 }
 
 #Buttons {
@@ -14,24 +15,26 @@
 }
 
 .button {
-    -fx-font: bold 14pt "courier new";
+    -fx-font: bold 14pt "Lucida Console";
     -fx-min-width: 92;
     -fx-min-height: 42;
     -fx-padding: 8 12;
+    -fx-border-color: green;
 }
 
 .label {
-    -fx-font: bold 14pt "Courier New";  /* font size and weight */
-    -fx-text-fill: darkblue;            /* text color */
+    -fx-font: bold 16pt "Lucida Console";
+    -fx-text-alignment: center;
+    -fx-text-fill: black;
 }
 
 .text-field {
-    -fx-font: bold 14pt "Courier New"; /* or any font size you want */
+    -fx-font: bold 14pt "Lucida Console";
     -fx-pref-height: 42;
 }
 
 .text-area {
-    -fx-font: bold 14pt "Courier New"; /* or any font size you want */
+    -fx-font: bold 16pt "Lucida Console";
     -fx-pref-width: 700;
     -fx-pref-height: 190;
 }
